@@ -1,2 +1,1152 @@
-<h1>Leaving Night</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selina Sutton's Leaving Night</title>
+    <link rel="shortcut icon" href="favicon.svg">
+    <link rel="manifest" href="manifest.webmanifest" >
+    <meta property="og:title" content="Selina Sutton's Leaving Night">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://selinajsutton.github.io/leaving_night/"> 
+    <!--
+    <meta property="og:image" content="https://selinajsutton.github.io/leaving_night/image.jpg"> 
+    -->
+    <meta property="og:description" content="Selina Sutton's Leaving Night">
+    <style>
+        body::before {
+            content: '';
+            position: fixed; /* fixed absolute */
+            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: auto;
+            aspect-ratio: 1792 / 1024;
 
+            /*
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 80%, rgba(0, 0, 0, 1.0) 100%), url('background.jpg');
+            */
+            background: linear-gradient(to bottom, rgba(254, 193, 50, 0.5) 0%, rgba(254, 193, 50, 0.7) 80%, rgba(254, 193, 50, 1.0) 100%), url('background.jpg');
+
+            background-position: top center;
+            background-repeat: no-repeat;
+            background-size: 100vw auto;
+        }
+        body {
+            margin: 20px auto;
+            font-size: 16pt;
+            max-width: 900px;
+
+            /*
+            font-family: 'Mukta', sans-serif;
+            color: #fff;
+            background: black;
+            text-shadow: 1px 1px 2px #000;
+            */
+            font-family: 'Varela Round', sans-serif;
+            color: #0a613d;
+            background: rgb(254, 193, 50); /* #FEC132; */
+        }
+        #map, .walk, .card {
+            text-shadow: none;
+        }
+        a {
+            color: inherit;
+            font-weight: bold;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+        }
+        a:hover, a:active {
+            color: #15b975;
+            text-decoration-style: solid;
+        }
+        h2 {
+            font-size: 12pt;
+            display: inline-block;
+            font-family: monospace;
+            font-weight: 600;
+            letter-spacing: 4px;
+            padding: 0.3em 1em;
+            text-transform: uppercase;
+            background-color: darkred;
+            text-shadow: 1px 1px #000;
+            box-shadow: 2px 2px #000;
+            color: white;
+            transform: rotate(-2deg);
+
+            /* remove */
+            display: none;
+        }
+        section {
+            margin: 0 1.5em;
+        }
+        .primary {
+            font-weight: 800;
+            font-size: calc(min(11vw, 100px));
+            margin: 0;
+            line-height: 1.5;
+            /* text-transform: uppercase; */
+        }
+        .whose .primary {
+            font-size: calc(min(5vw, 60px));
+        }
+        .when .primary {
+            font-size: calc(min(6vw, 60px));
+        }
+        .secondary {
+            font-size: calc(min(6vw, 60px));
+            margin: 0;
+            /* text-transform: uppercase; */
+        }
+        .minor {
+            font-size: 12pt;
+        }
+        .deemph {
+            font-size: 12pt;
+            font-style: italic;
+            margin: 0;
+        }
+        .deemph a {
+            font-style: normal;
+        }
+        .prefer-together {
+            display: inline-block;
+        }
+        sub {
+            font-size: .5em;
+            vertical-align: baseline;
+        }
+        sup {
+            font-size: .5em;
+            vertical-align: 58%;
+        }
+        abbr {
+            text-decoration: none;
+            cursor: help;
+        }
+        abbr:hover {
+            text-decoration: underline;
+            text-decoration-style: wavy;
+        }
+        .logo {
+            width: 300px;
+        }
+        section.who, section.where {
+            text-align: center;
+        }
+        section.which {
+            text-align: center;
+        }
+        section.which ol {
+            list-style: none;
+        }
+        section.which ol li {
+            margin-bottom: 12pt;
+        }
+        section.which time.dt-start {
+            font-weight: bold;
+            font-variant-numeric: tabular-nums;
+        }
+        section.which time.walk {
+            font-weight: bold;
+            font-size: small;
+            background-color: #fff;
+            color: #000;
+            display: inline-block;
+            border-radius: 8px;
+            padding: 0.15em 0.5em;
+            vertical-align: middle;
+
+            background-image: url('icon-walking.svg');
+            background-size: 8px auto;
+            padding-left: 20px;
+            background-repeat: no-repeat;
+            background-position: 0.5em 50%;
+
+            opacity: 0.5;
+        }
+        section.which time.walk::before {
+            content: '';
+        }
+        section.which time.walk::after {
+            content: ' min';
+            font-size: x-small;
+        }
+        section.whose, section.what, section.when, section.whence {
+            text-align: center;
+            margin: 0 0.2em;
+        }
+
+        /* share info */
+        hr {
+            border: 0;
+            height: 1px;
+            background: #fff;
+        }
+        .whence {
+            display: grid; 
+            grid-template-columns: 1fr auto; 
+            grid-template-rows: 1fr; 
+            gap: 0px 0px; 
+            padding: 1em 0.5em;
+            padding-bottom: 10em;
+            box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+        @media screen and (max-width: 650px) {
+            .whence {
+                display: block; 
+            }
+        }
+        .whence div {
+            vertical-align: middle;
+        }
+        .whence div:first-child {
+            order: 1;
+        }
+        .url a {
+            font-family: monospace;
+            font-size: 12pt;
+            text-decoration: none;
+            font-weight: normal;
+            position: relative;
+            top: +20px;
+            margin: 0 auto;
+            padding: 0;
+        }
+        .link {
+            text-align: center;
+        }
+        .link img {
+            width: min(100%, 600px);
+        }
+        .qrcode {
+            width: 50vw;
+            max-width: 250px;
+        }
+        .ogimage {
+            width: 100%;
+        }
+
+        /* map */
+        .maplibregl-popup-content {
+            color: black;
+        }
+        #map {
+            background: #cccccc url(map.jpg) center center no-repeat;
+            width: 100%;
+            height: 30vh;
+            min-height: 450px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 8px 8px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2em;
+        }
+        .marker {
+            font-size: 24px;
+            text-shadow: 1px 1px 4px #000;
+        }
+        .marker.active {
+            background: #faf0a0;
+            box-shadow: 0 0 3pt 3pt #faf0a0;
+            padding: 6px 0;
+        }
+        .marker.target {
+            background: red !important;
+            box-shadow: 0 0 3pt 3pt red !important;
+            padding: 6px 0;
+        }
+        /* mode to help generate open graph image: add '#og_image' to URL, set developer window to 1200x630, take screenshot. */
+        body.og_image {
+            width: 100vw;
+            height: 100vh;
+            margin: 0 auto;
+            text-align: center;
+            max-width: none;
+        }
+        body.og_image .whose {
+            padding-top: 3em;
+        }
+        /* mode to quickly share website, add to url: #info */
+        .info h2, .info section, .info hr, .info section.when .deemph, .info section.whence img {
+            display: none;
+        }
+        .info section.whose, .info section.what, .info section.when, .info section.whence {
+            display: block;
+        }
+        .info section.whence details::details-content {
+            display: block;
+        }
+        .info details.shareinfo summary::marker {
+            content: '';
+        }
+        body.zoom {
+            zoom: 1.2;
+        }
+
+        /* Card */
+        .card:target, .card.target {
+            box-shadow: 0 0 6pt 6pt red !important;
+        }
+        .card.active {
+            box-shadow: 0 0 6pt 6pt #faf0a0;
+            background-image: repeating-linear-gradient(to bottom right, #a2682a 0%, #be8c3c 8%, #be8c3c 18%, #d3b15f 27%, #faf0a0 35%, #ffffc2 40%, #faf0a0 50%, #d3b15f 58%, #be8c3c 67%, #b17b32 77%, #bb8332 83%, #d4a245 88%, #e1b453 93%, #a4692a 100%);
+            background-size: 150%;
+            animation: card_animate_background 6s ease-in-out infinite;
+        }
+        @keyframes card_animate_background { 
+            0% {
+                background-position: 0% 50%
+            }
+            
+            50% {
+                background-position: 100% 50%
+            }
+            
+            100% {
+                background-position: 0% 50%
+            }
+        }
+        .card {
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: normal;
+            line-height: 1.2;
+            color: black;
+            background-color: white;
+            border: 1px solid black;
+            border-radius: 5px;
+            box-sizing: border-box;
+            width: calc(100% - 20px);
+            max-width: 340px;
+            min-height: 480px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+            outline-offset: -10px;
+            outline: 1px solid black;
+            outline: 1px solid black, 10px solid transparent, 10px solid red;
+            padding: 1em;
+            text-align: center;
+            display: inline-flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 0.5em;
+        }
+        .card .header {
+            background-color: black;
+            color: white;
+            border: 4px solid black;
+            line-height: 1.0;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+            min-height: 60px;
+            align-content: center;
+        }
+        .card .header div {
+            margin: 0.3em 0;
+        }
+        .card .header :nth-last-child(2) {
+            font-size: 10pt;
+            font-weight: normal;
+        }
+        .card .index {
+            font-size: 18px;
+            /*
+            display: inline-block;
+            font-weight: bold;
+            background-color: #fff;
+            color: #000;
+            display: inline-block;
+            border-radius: 15px;
+            padding: 0.2em 0.4em;
+            text-align: center;
+            vertical-align: middle;
+            font-variant-numeric: tabular-nums;
+            */
+        }
+        .card .body {
+            font-size: 14pt;
+            flex: 1;
+            overflow-y: auto;
+            text-align: justify;
+        }
+        .card .footer {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .card .footer a {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            max-width: 100%;
+            display: inline-block;
+            vertical-align: bottom;
+        }
+
+        .card .footer .p-rating::before {
+            content: '⭐ ';
+        }
+        .card .footer .closes::before {
+            content: '⌛ ';
+        }
+        .card .footer .walking::before {
+            content: '🚶‍➡️';
+        }
+        .card .footer .walking::after {
+            content: 'm';
+        }
+        .card .footer a.location::before {
+            content: '📍 ';
+        }
+        .card .footer a.website::before {
+            content: '🔗 ';
+        }
+        .card .footer .overflow::before {
+            content: '⤵️ Overflow: ';
+            font-style: normal;
+        }
+        .card:nth-of-type(10n+1) .header { background-color: #955436; color: black; }
+        .card:nth-of-type(10n+2) .header { background-color: #AAE0FA; color: black; }
+        .card:nth-of-type(10n+3) .header { background-color: #D93A96; color: black; }
+        .card:nth-of-type(10n+4) .header { background-color: #F7941D; color: black; }
+        .card:nth-of-type(10n+5) .header { background-color: #ED1B24; color: black; }
+        .card:nth-of-type(10n+6) .header { background-color: #FEF200; color: black; }
+        .card:nth-of-type(10n+7) .header { background-color: #1FB25A; color: black; }
+        .card:nth-of-type(10n+8) .header { background-color: #0072BD; color: black; }
+        .card:nth-of-type(10n+9) .header { background-color: #000000; color: white; }
+        .card:nth-of-type(10n+10) .header { background-color: #d1deba; color: black; } /* #583a94 */
+    </style>
+    <!-- <link rel="stylesheet" href="Mukta/style.css" /> --><!-- @import 'Mukta/style.css'; * Font: Azo Sans (Extra Bold) */ -->
+    <link rel="stylesheet" href="VarelaRound-Regular/style.css" /> <!-- @import 'VarelaRound-Regular/style.css'; -->
+    <link rel="stylesheet" href="Josefin_Sans/style.css" /> <!-- @import 'Josefin_Sans/style.css'; /* Kabel */ -->
+</head>
+<body>
+    <h2>Whose?</h2>
+    <section class="whose">
+        <p class="primary">Selina Sutton's</p>
+        <!--
+        <p class="deemph">$EVENT_HOST_INTRO</p>
+        -->
+    </section>
+
+    <h2>What?</h2>
+    <section class="what">
+        <p class="primary">Leaving Night</p>
+        <!--
+        <p class="deemph">$EVENT_SUBTITLE</p>
+        -->
+    </section>
+
+    <h2>When?</h2>
+    <section class="when">
+        <p class="primary"><time datetime="2025-07-18">Friday <span class="prefer-together">18<sup>th</sup> July</span></time></p>
+        <p class="secondary"><time datetime="17:00">5<sub>pm</sub></time> onwards</p>
+        <p class="deemph">
+            Add to your calendar: 
+            <a href="event.ics">📆&nbsp;iCal&nbsp;(incl.&nbsp;Apple)</a> |
+            <a target="_blank" href="https://calendar.google.com/calendar/render?action=TEMPLATE&dates=20250718T163000/20250718T235900&ctz=Europe/London&text=Selina%27s+Leaving+Night&location=Newcastle&details=Selina%27s+Leaving+Night+-+https%3A%2F%2Fselinajsutton.github.io%2Fleaving_night%2F">📆&nbsp;Google&nbsp;Calendar</a> |
+            <a target="_blank" href="https://outlook.live.com/calendar/action/compose?rru=addevent&startdt=25-07-18T16:30:00%2B0100&enddt=25-07-18T23:59:00%2B0100&subject=Selina%27s+Leaving+Night&location=Newcastle&body=Selina%27s+Leaving+Night+-+https%3A%2F%2Fselinajsutton.github.io%2Fleaving_night%2F">📆&nbsp;Outlook.com</a>
+        </p>
+    </section>
+
+    <h2>Who?</h2>
+    <section class="who">
+        <p>
+            Friends and colleagues, please join for as little or as long as you can.  
+        </p>
+    </section>
+
+    <h2>Where?</h2>
+    <section class="where">
+        <p>
+            Starting at <a href="http://www.asyoulikeitjesmond.com/">🍻&nbsp;As You Like It</a> in
+            <a href="https://maps.app.goo.gl/nN3m2TBtxftRoUPW8">📍&nbsp;Jesmond Three Sixty, NE2&nbsp;1DB</a>.
+        </p>
+        <p>
+            We will then move on to other bars around Newcastle.
+        </p>
+        <div id="map"></div>
+    </section>
+
+    <h2>Which?</h2>
+    <section class="which">
+        <p>
+            The full plan for the evening is:
+        </p>
+
+<!--
+#(removed)
+2025-07-18T16:30:00+0100
+The Five Swans
+https://maps.app.goo.gl/TXH4b7UBcdZuUyas5
+St Mary's Pl, NE1 7PG
+-1.611730559187696
+54.97774834180521
+https://www.jdwetherspoon.com/pubs/the-five-swans-newcastle-upon-tyne/
+3.9
+02:00
+
+#1
+2025-07-18T17:00:00+0100
+As You Like It
+https://maps.app.goo.gl/nN3m2TBtxftRoUPW8
+Jesmond Three Sixty, NE2 1DB
+-1.6054252455148323
+54.98122278154386
+http://www.asyoulikeitjesmond.com/
+10
+4.3
+02:00
+
+#2
+2025-07-18T18:30:00+0100
+The Carriage
+https://maps.app.goo.gl/W9R7vo64ww91KfhS9
+Archbold Terrace, NE2 1DB
+-1.6049103391719353
+54.981919855626955
+https://www.facebook.com/thecarriagejesmond/
+2
+4.6
+00:00
+
+#3
+2025-07-18T20:30:00+0100
+Ernest
+https://maps.app.goo.gl/TBAZ6JTvXUcyiV8E8
+Boyd St, NE2 1AP
+-1.5963421656513173
+54.97665242190551
+https://weareernest.com/
+14
+4.5
+01:00
+
+#4
+2025-07-18T22:30:00+0100
+The Tanners Arms
+https://maps.app.goo.gl/PbvZUb2XQiCsJM9w7
+Byker Bridge, NE1 2NS
+-1.5965019231651918
+54.97474892613538
+http://www.thetannersarms.co.uk/
+4
+4.5
+00:00
+
+#5
+2025-07-19T00:00:00+0100
+The Bridge Tavern
+https://maps.app.goo.gl/6gku3kWNZi7JfjY8A
+Akenside Hill, NE1 3UF
+-1.6076386854452016
+54.96942975090322
+https://www.thebridgetavern.com/
+16
+4.5
+01:00
+
+#6
+2025-07-19T01:00:00+0100
+Pleased to Meet You
+https://maps.app.goo.gl/PUHqtUQXr24xaM746
+High Bridge, NE1 1EW
+-1.6124446199919285
+54.97201435661778
+http://www.ptmy-newcastle.co.uk/
+12
+4.3
+02:00
+
+#(removed)
+2025-07-19T02:00:00+0100
+Lady Grey's
+https://maps.app.goo.gl/4sFqonFdNPmowHhh8
+Shakespeare St, NE1 6AQ
+-1.6112520887430497
+54.97266183045964
+https://www.ladygreys.co.uk/
+2
+4.4
+03:00
+
+-->
+
+<!--
+        <div class="card" id="0">
+            <div class="header">
+                <div>
+                    <data class="index">0️⃣</data>
+                    <time class="dt-start" datetime="2025-07-18T16:30:00+0100">16:30</time> &mdash;
+                    <time class="dt-end" datetime="2025-07-18T17:50:00+0100">17:50</time>
+                </div>
+                <div class="p-name">The Five Swans</div>
+            </div>
+            <div class="body p-summary">
+                <p>Starting at... </p>
+                <p><em>The Five Swans</em> is...</p>
+            </div>
+            <div class="footer">
+                <div>
+                    <a class="location" href="https://maps.app.goo.gl/TXH4b7UBcdZuUyas5">St Mary's Pl, NE1 7PG</a>
+                    <span class="h-geo">
+                        <data class="p-longitude" value="-1.611730559187696"></data>
+                        <data class="p-latitude" value="54.97774834180521"></data>
+                    </span>
+                    <a class="website" href="https://www.jdwetherspoon.com/pubs/the-five-swans-newcastle-upon-tyne/">jdwetherspoon.com</a>
+                </div>
+                <div>
+                    <time class="walking" datetime="PT0M">0</time>
+                    <data class="p-rating" value="3.9">3.9</data>
+                    <time class="closes" datetime="02:00">02:00</time>
+                </div>
+            </div>
+        </div>
+-->
+
+        <div class="card" id="1">
+            <div class="header">
+                <div>
+                    <data class="index">1️⃣</data>
+                    <time class="dt-start" datetime="2025-07-18T17:00:00+0100">17:00</time> &mdash;
+                    <time class="dt-end" datetime="2025-07-18T18:30:00+0100">18:30</time>
+                </div>
+                <div class="p-name">As You Like It</div>
+            </div>
+            <div class="body p-summary">
+                <p>Just a short walk North of Northumbria campus.</p>
+                <p><em>As You Like It</em> has a great selection of drinks!</p>
+            </div>
+            <div class="footer">
+                <!-- <div class="overflow"><a href="">If ...</a>: <em>...</em></div> -->
+                <div>
+                    <a class="location" href="https://maps.app.goo.gl/nN3m2TBtxftRoUPW8">Jesmond Three Sixty, NE2 1DB</a>
+                    <span class="h-geo">
+                        <data class="p-longitude" value="-1.6054252455148323"></data>
+                        <data class="p-latitude" value="54.98122278154386"></data>
+                    </span>
+                    <a class="website" href="http://www.asyoulikeitjesmond.com/">asyoulikeitjesmond.com</a>
+                </div>
+                <div>
+                    <!-- <time class="walking" datetime="PT0M">0</time> -->
+                    <data class="p-rating" value="4.3">4.3</data>
+                    <time class="closes" datetime="02:00">02:00</time>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="2">
+            <div class="header">
+                <div>
+                    <data class="index">2️⃣</data>
+                    <time class="dt-start" datetime="2025-07-18T18:30:00+0100">18:30</time> &mdash;
+                    <time class="dt-end" datetime="2025-07-18T20:15:00+0100">20:15</time>
+                </div>
+                <div class="p-name">The Carriage</div>
+            </div>
+            <div class="body p-summary">
+                <p>Just behind <em>As You Like It</em>, across the car park.</p>
+                <p><em>The Carriage</em> is a fantastic "pubby" pub in the old Jesmond Station.</p>
+            </div>
+            <div class="footer">
+                <div>
+                    <a class="location" href="https://maps.app.goo.gl/W9R7vo64ww91KfhS9">Archbold Terrace, NE2 1DB</a>
+                    <span class="h-geo">
+                        <data class="p-longitude" value="-1.6049103391719353"></data>
+                        <data class="p-latitude" value="54.981919855626955"></data>
+                    </span>
+                    <a class="website" href="https://www.facebook.com/thecarriagejesmond/">facebook.com/thecarriagejesmond</a>
+                </div>
+                <div>
+                    <time class="walking" datetime="PT3M">2</time>
+                    <data class="p-rating" value="4.6">4.6</data>
+                    <time class="closes" datetime="00:00">00:00</time>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="3">
+            <div class="header">
+                <div>
+                    <data class="index">3️⃣</data>
+                    <time class="dt-start" datetime="2025-07-18T20:30:00+0100">20:30</time> &mdash;
+                    <time class="dt-end" datetime="2025-07-18T22:25:00+0100">22:25</time>
+                </div>
+                <div class="p-name">Ernest</div>
+            </div>
+            <div class="body p-summary">
+                <p>Walk over the Metro tracks, down Portland Rd./Stoddart St., then behind <em>The Biscuit Factory.</em></p>
+                <p><em>Ernest</em> is a great cafe bar on the edge of the Ouseburn area.</p>
+            </div>
+            <div class="footer">
+                <div>
+                    <a class="location" href="https://maps.app.goo.gl/TBAZ6JTvXUcyiV8E8">Boyd St, NE2 1AP</a>
+                    <span class="h-geo">
+                        <data class="p-longitude" value="-1.5963421656513173"></data>
+                        <data class="p-latitude" value="54.97665242190551"></data>
+                    </span>
+                    <a class="website" href="https://weareernest.com/">weareernest.com</a>
+                </div>
+                <div>
+                    <time class="walking" datetime="PT14M">14</time>
+                    <data class="p-rating" value="4.5">4.5</data>
+                    <time class="closes" datetime="01:00">01:00</time>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="4">
+            <div class="header">
+                <div>
+                    <data class="index">4️⃣</data>
+                    <time class="dt-start" datetime="2025-07-18T22:30:00+0100">22:30</time> &mdash;
+                    <time class="dt-end" datetime="2025-07-18T23:45:00+0100">23:45</time>
+                </div>
+                <div class="p-name">The Tanners Arms</div>
+            </div>
+            <div class="body p-summary">
+                <p>Walk back to Stoddart St. and head South, then over the road.</p>
+                <p><em>The Tanners Arms</em> is a popular pub on the edge of the Ouseburn area.</p>
+            </div>
+            <div class="footer">
+                <div>
+                    <a class="location" href="https://maps.app.goo.gl/PbvZUb2XQiCsJM9w7">Byker Bridge, NE1 2NS</a>
+                    <span class="h-geo">
+                        <data class="p-longitude" value="-1.5965019231651918"></data>
+                        <data class="p-latitude" value="54.97474892613538"></data>
+                    </span>
+                    <a class="website" href="http://www.thetannersarms.co.uk/">thetannersarms.co.uk</a>
+                </div>
+                <div>
+                    <time class="walking" datetime="PT4M">4</time>
+                    <data class="p-rating" value="4.5">4.5</data>
+                    <time class="closes" datetime="00:00">00:00</time>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="5">
+            <div class="header">
+                <div>
+                    <data class="index">5️⃣</data>
+                    <time class="dt-start" datetime="2025-07-19T00:00:00+0100">00:00</time> &mdash;
+                    <time class="dt-end" datetime="2025-07-19T00:55:00+0100">00:55</time>
+                </div>
+                <div class="p-name">The Bridge Tavern</div>
+            </div>
+            <div class="body p-summary">
+                <p>Walk South towards The Tyne, then upstream to just under the Tyne Bridge in the Quayside area.</p>
+                <p><em>The Bridge Tavern</em> is underneath the Tyne Bridge, has a good drink selection, and <em>The Terrace</em> outside area upstairs.</p>
+            </div>
+            <div class="footer">
+                <div>
+                    <a class="location" href="https://maps.app.goo.gl/6gku3kWNZi7JfjY8A">Akenside Hill, NE1 3UF</a>
+                    <span class="h-geo">
+                        <data class="p-longitude" value="-1.6076386854452016"></data>
+                        <data class="p-latitude" value="54.96942975090322"></data>
+                    </span>
+                    <a class="website" href="https://www.thebridgetavern.com/">thebridgetavern.com</a>
+                </div>
+                <div>
+                    <time class="walking" datetime="PT16M">16</time>
+                    <data class="p-rating" value="4.5">4.5</data>
+                    <time class="closes" datetime="01:00">01:00</time>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="6">
+            <div class="header">
+                <div>
+                    <data class="index">6️⃣</data>
+                    <time class="dt-start" datetime="2025-07-19T01:00:00+0100">01:00</time> &mdash;
+                    <time class="dt-end" datetime="2025-07-19T02:00:00+0100">02:00</time>
+                </div>
+                <div class="p-name">Pleased to Meet You</div>
+            </div>
+            <div class="body p-summary">
+                <p>Walk along Side and up Dean St./Grey St., then High Bridge St. on your left.</p>
+                <p><em>Pleased to Meet You</em> has a good selection of drinks &mdash; particularly gin!</p>
+            </div>
+            <div class="footer">
+                <div>
+                    <a class="location" href="https://maps.app.goo.gl/PUHqtUQXr24xaM746">High Bridge, NE1 1EW</a>
+                    <span class="h-geo">
+                        <data class="p-longitude" value="-1.6124446199919285"></data>
+                        <data class="p-latitude" value="54.97201435661778"></data>
+                    </span>
+                    <a class="website" href="http://www.ptmy-newcastle.co.uk/">ptmy-newcastle.co.uk</a>
+                </div>
+                <div>
+                    <time class="walking" datetime="PT6M">6</time>
+                    <data class="p-rating" value="4.3">4.3</data>
+                    <time class="closes" datetime="02:00">02:00</time>
+                </div>
+            </div>
+        </div>
+
+<!--
+        <div class="card" id="7">
+            <div class="header">
+                <div>
+                    <data class="index">7️⃣</data>
+                    <time class="dt-start" datetime="2025-07-19T02:00:00+0100">02:00</time> &mdash;
+                    <time class="dt-end" datetime="2025-07-19T03:00:00+0100">03:00</time>
+                </div>
+                <div class="p-name">Lady Grey's</div>
+            </div>
+            <div class="body p-summary">
+                <p><em>Lady Grey's</em> offers a ridiculous number of beer taps and famously late opening!</p>
+            </div>
+            <div class="footer">
+                <div>
+                    <a class="location" href="https://maps.app.goo.gl/4sFqonFdNPmowHhh8">Shakespeare St, NE1 6AQ</a>
+                    <span class="h-geo">
+                        <data class="p-longitude" value="-1.6112520887430497"></data>
+                        <data class="p-latitude" value="54.97266183045964"></data>
+                    </span>
+                    <a class="website" href=https://www.ladygreys.co.uk/">ladygreys.co.uk</a>
+                </div>
+                <div>
+                    <time class="walking" datetime="PT2M">2</time>
+                    <data class="p-rating" value="4.4">4.4</data>
+                    <time class="closes" datetime="03:00">03:00</time>
+                </div>
+            </div>
+        </div>
+-->
+
+    </section>
+
+    <!--
+    <h2>Why?</h2>
+    <section class="why">
+        <p>It always fun to have a bar crawl to celebrate events, and Newcastle has some fantastic pubs and bars.</p>
+    </section>
+
+    <h2>How?</h2>
+    <section class="how">
+        <p>
+            ...can I get something to eat on the way?  The best opportunity will be at or near the first few venues or along the way.
+        </p>
+    </section>
+    -->
+    
+    <details class="shareinfo">
+        <summary></summary>
+
+        <!--
+        <h2>Whether</h2>
+        <section class="whether">
+            <p>Whether or not the weather is fine &mdash; dress appropriately!</p>
+        </section>
+
+        <h2>Whom</h2>
+        <section class="whom">
+            <p>Website by Dan Jackson!</p>
+        </section>
+        -->
+
+        <h2>Whence?</h2>
+        <section class="whence">
+            <div>
+                <img class="ogimage" src="image.jpg" loading="lazy">
+                <!-- ogimage: 1200x630 -->
+                <!-- <svg class="logo"><use href="#logo"></use></svg> -->
+            </div>
+            <div>
+                <div class="url"><a href="https://selinajsutton.github.io/leaving_night/">https://selinajsutton.github.io/leaving_night/</a></div>
+                <div>
+                    <!-- #region QR Code -->
+                    <svg class="qrcode" title="https://selinajsutton.github.io/leaving_night/" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="-4.5 -4.5 37 37" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <defs><rect id="b" x="-0.500000" y="-0.500000" width="1.000000" height="1.000000" rx="0.500000" /><path id="f" d="" visibility="hidden" /><g id="fc"><rect x="-3" y="-3" width="6" height="6" rx="0.750000" stroke="currentColor" stroke-width="1" fill="none" /><rect x="-1.5" y="-1.5" width="3" height="3" rx="0.375000" /></g><use id="a" xlink:href="#b" /><path id="ac" d="" visibility="hidden" /></defs><use x="0" y="0" xlink:href="#f" /><use x="1" y="0" xlink:href="#f" /><use x="2" y="0" xlink:href="#f" /><use x="3" y="0" xlink:href="#f" /><use x="4" y="0" xlink:href="#f" /><use x="5" y="0" xlink:href="#f" /><use x="6" y="0" xlink:href="#f" /><use x="10" y="0" xlink:href="#b" /><use x="13" y="0" xlink:href="#b" /><use x="14" y="0" xlink:href="#b" /><use x="15" y="0" xlink:href="#b" /><use x="18" y="0" xlink:href="#b" /><use x="19" y="0" xlink:href="#b" /><use x="22" y="0" xlink:href="#f" /><use x="23" y="0" xlink:href="#f" /><use x="24" y="0" xlink:href="#f" /><use x="25" y="0" xlink:href="#f" /><use x="26" y="0" xlink:href="#f" /><use x="27" y="0" xlink:href="#f" /><use x="28" y="0" xlink:href="#f" /><use x="0" y="1" xlink:href="#f" /><use x="6" y="1" xlink:href="#f" /><use x="9" y="1" xlink:href="#b" /><use x="13" y="1" xlink:href="#b" /><use x="15" y="1" xlink:href="#b" /><use x="18" y="1" xlink:href="#b" /><use x="19" y="1" xlink:href="#b" /><use x="22" y="1" xlink:href="#f" /><use x="28" y="1" xlink:href="#f" /><use x="0" y="2" xlink:href="#f" /><use x="2" y="2" xlink:href="#f" /><use x="3" y="2" xlink:href="#f" /><use x="4" y="2" xlink:href="#f" /><use x="6" y="2" xlink:href="#f" /><use x="8" y="2" xlink:href="#b" /><use x="11" y="2" xlink:href="#b" /><use x="15" y="2" xlink:href="#b" /><use x="19" y="2" xlink:href="#b" /><use x="22" y="2" xlink:href="#f" /><use x="24" y="2" xlink:href="#f" /><use x="25" y="2" xlink:href="#f" /><use x="26" y="2" xlink:href="#f" /><use x="28" y="2" xlink:href="#f" /><use x="0" y="3" xlink:href="#f" /><use x="2" y="3" xlink:href="#f" /><use x="3" y="3" xlink:href="#f" /><use x="4" y="3" xlink:href="#f" /><use x="6" y="3" xlink:href="#f" /><use x="9" y="3" xlink:href="#b" /><use x="12" y="3" xlink:href="#b" /><use x="14" y="3" xlink:href="#b" /><use x="15" y="3" xlink:href="#b" /><use x="16" y="3" xlink:href="#b" /><use x="18" y="3" xlink:href="#b" /><use x="22" y="3" xlink:href="#f" /><use x="24" y="3" xlink:href="#f" /><use x="25" y="3" xlink:href="#f" /><use x="26" y="3" xlink:href="#f" /><use x="28" y="3" xlink:href="#f" /><use x="0" y="4" xlink:href="#f" /><use x="2" y="4" xlink:href="#f" /><use x="3" y="4" xlink:href="#f" /><use x="4" y="4" xlink:href="#f" /><use x="6" y="4" xlink:href="#f" /><use x="9" y="4" xlink:href="#b" /><use x="12" y="4" xlink:href="#b" /><use x="13" y="4" xlink:href="#b" /><use x="14" y="4" xlink:href="#b" /><use x="15" y="4" xlink:href="#b" /><use x="17" y="4" xlink:href="#b" /><use x="18" y="4" xlink:href="#b" /><use x="19" y="4" xlink:href="#b" /><use x="20" y="4" xlink:href="#b" /><use x="22" y="4" xlink:href="#f" /><use x="24" y="4" xlink:href="#f" /><use x="25" y="4" xlink:href="#f" /><use x="26" y="4" xlink:href="#f" /><use x="28" y="4" xlink:href="#f" /><use x="0" y="5" xlink:href="#f" /><use x="6" y="5" xlink:href="#f" /><use x="10" y="5" xlink:href="#b" /><use x="11" y="5" xlink:href="#b" /><use x="12" y="5" xlink:href="#b" /><use x="14" y="5" xlink:href="#b" /><use x="15" y="5" xlink:href="#b" /><use x="16" y="5" xlink:href="#b" /><use x="17" y="5" xlink:href="#b" /><use x="19" y="5" xlink:href="#b" /><use x="22" y="5" xlink:href="#f" /><use x="28" y="5" xlink:href="#f" /><use x="0" y="6" xlink:href="#f" /><use x="1" y="6" xlink:href="#f" /><use x="2" y="6" xlink:href="#f" /><use x="3" y="6" xlink:href="#f" /><use x="4" y="6" xlink:href="#f" /><use x="5" y="6" xlink:href="#f" /><use x="6" y="6" xlink:href="#f" /><use x="8" y="6" xlink:href="#b" /><use x="10" y="6" xlink:href="#b" /><use x="12" y="6" xlink:href="#b" /><use x="14" y="6" xlink:href="#b" /><use x="16" y="6" xlink:href="#b" /><use x="18" y="6" xlink:href="#b" /><use x="20" y="6" xlink:href="#b" /><use x="22" y="6" xlink:href="#f" /><use x="23" y="6" xlink:href="#f" /><use x="24" y="6" xlink:href="#f" /><use x="25" y="6" xlink:href="#f" /><use x="26" y="6" xlink:href="#f" /><use x="27" y="6" xlink:href="#f" /><use x="28" y="6" xlink:href="#f" /><use x="8" y="7" xlink:href="#b" /><use x="11" y="7" xlink:href="#b" /><use x="13" y="7" xlink:href="#b" /><use x="15" y="7" xlink:href="#b" /><use x="17" y="7" xlink:href="#b" /><use x="18" y="7" xlink:href="#b" /><use x="20" y="7" xlink:href="#b" /><use x="0" y="8" xlink:href="#b" /><use x="1" y="8" xlink:href="#b" /><use x="2" y="8" xlink:href="#b" /><use x="4" y="8" xlink:href="#b" /><use x="5" y="8" xlink:href="#b" /><use x="6" y="8" xlink:href="#b" /><use x="7" y="8" xlink:href="#b" /><use x="8" y="8" xlink:href="#b" /><use x="12" y="8" xlink:href="#b" /><use x="13" y="8" xlink:href="#b" /><use x="16" y="8" xlink:href="#b" /><use x="17" y="8" xlink:href="#b" /><use x="19" y="8" xlink:href="#b" /><use x="20" y="8" xlink:href="#b" /><use x="21" y="8" xlink:href="#b" /><use x="22" y="8" xlink:href="#b" /><use x="26" y="8" xlink:href="#b" /><use x="0" y="9" xlink:href="#b" /><use x="1" y="9" xlink:href="#b" /><use x="2" y="9" xlink:href="#b" /><use x="5" y="9" xlink:href="#b" /><use x="9" y="9" xlink:href="#b" /><use x="11" y="9" xlink:href="#b" /><use x="12" y="9" xlink:href="#b" /><use x="13" y="9" xlink:href="#b" /><use x="16" y="9" xlink:href="#b" /><use x="17" y="9" xlink:href="#b" /><use x="18" y="9" xlink:href="#b" /><use x="20" y="9" xlink:href="#b" /><use x="21" y="9" xlink:href="#b" /><use x="22" y="9" xlink:href="#b" /><use x="25" y="9" xlink:href="#b" /><use x="28" y="9" xlink:href="#b" /><use x="1" y="10" xlink:href="#b" /><use x="3" y="10" xlink:href="#b" /><use x="5" y="10" xlink:href="#b" /><use x="6" y="10" xlink:href="#b" /><use x="7" y="10" xlink:href="#b" /><use x="8" y="10" xlink:href="#b" /><use x="10" y="10" xlink:href="#b" /><use x="11" y="10" xlink:href="#b" /><use x="12" y="10" xlink:href="#b" /><use x="13" y="10" xlink:href="#b" /><use x="21" y="10" xlink:href="#b" /><use x="23" y="10" xlink:href="#b" /><use x="24" y="10" xlink:href="#b" /><use x="26" y="10" xlink:href="#b" /><use x="27" y="10" xlink:href="#b" /><use x="28" y="10" xlink:href="#b" /><use x="0" y="11" xlink:href="#b" /><use x="1" y="11" xlink:href="#b" /><use x="3" y="11" xlink:href="#b" /><use x="4" y="11" xlink:href="#b" /><use x="9" y="11" xlink:href="#b" /><use x="10" y="11" xlink:href="#b" /><use x="12" y="11" xlink:href="#b" /><use x="13" y="11" xlink:href="#b" /><use x="14" y="11" xlink:href="#b" /><use x="15" y="11" xlink:href="#b" /><use x="16" y="11" xlink:href="#b" /><use x="17" y="11" xlink:href="#b" /><use x="20" y="11" xlink:href="#b" /><use x="21" y="11" xlink:href="#b" /><use x="22" y="11" xlink:href="#b" /><use x="23" y="11" xlink:href="#b" /><use x="24" y="11" xlink:href="#b" /><use x="27" y="11" xlink:href="#b" /><use x="1" y="12" xlink:href="#b" /><use x="3" y="12" xlink:href="#b" /><use x="4" y="12" xlink:href="#b" /><use x="5" y="12" xlink:href="#b" /><use x="6" y="12" xlink:href="#b" /><use x="10" y="12" xlink:href="#b" /><use x="11" y="12" xlink:href="#b" /><use x="16" y="12" xlink:href="#b" /><use x="17" y="12" xlink:href="#b" /><use x="19" y="12" xlink:href="#b" /><use x="20" y="12" xlink:href="#b" /><use x="21" y="12" xlink:href="#b" /><use x="22" y="12" xlink:href="#b" /><use x="25" y="12" xlink:href="#b" /><use x="27" y="12" xlink:href="#b" /><use x="28" y="12" xlink:href="#b" /><use x="7" y="13" xlink:href="#b" /><use x="8" y="13" xlink:href="#b" /><use x="10" y="13" xlink:href="#b" /><use x="11" y="13" xlink:href="#b" /><use x="14" y="13" xlink:href="#b" /><use x="16" y="13" xlink:href="#b" /><use x="20" y="13" xlink:href="#b" /><use x="21" y="13" xlink:href="#b" /><use x="22" y="13" xlink:href="#b" /><use x="25" y="13" xlink:href="#b" /><use x="28" y="13" xlink:href="#b" /><use x="0" y="14" xlink:href="#b" /><use x="2" y="14" xlink:href="#b" /><use x="3" y="14" xlink:href="#b" /><use x="4" y="14" xlink:href="#b" /><use x="5" y="14" xlink:href="#b" /><use x="6" y="14" xlink:href="#b" /><use x="8" y="14" xlink:href="#b" /><use x="9" y="14" xlink:href="#b" /><use x="10" y="14" xlink:href="#b" /><use x="13" y="14" xlink:href="#b" /><use x="16" y="14" xlink:href="#b" /><use x="18" y="14" xlink:href="#b" /><use x="20" y="14" xlink:href="#b" /><use x="22" y="14" xlink:href="#b" /><use x="24" y="14" xlink:href="#b" /><use x="25" y="14" xlink:href="#b" /><use x="27" y="14" xlink:href="#b" /><use x="28" y="14" xlink:href="#b" /><use x="0" y="15" xlink:href="#b" /><use x="1" y="15" xlink:href="#b" /><use x="5" y="15" xlink:href="#b" /><use x="7" y="15" xlink:href="#b" /><use x="8" y="15" xlink:href="#b" /><use x="9" y="15" xlink:href="#b" /><use x="11" y="15" xlink:href="#b" /><use x="13" y="15" xlink:href="#b" /><use x="14" y="15" xlink:href="#b" /><use x="15" y="15" xlink:href="#b" /><use x="16" y="15" xlink:href="#b" /><use x="17" y="15" xlink:href="#b" /><use x="19" y="15" xlink:href="#b" /><use x="20" y="15" xlink:href="#b" /><use x="24" y="15" xlink:href="#b" /><use x="25" y="15" xlink:href="#b" /><use x="27" y="15" xlink:href="#b" /><use x="1" y="16" xlink:href="#b" /><use x="3" y="16" xlink:href="#b" /><use x="5" y="16" xlink:href="#b" /><use x="6" y="16" xlink:href="#b" /><use x="12" y="16" xlink:href="#b" /><use x="13" y="16" xlink:href="#b" /><use x="15" y="16" xlink:href="#b" /><use x="16" y="16" xlink:href="#b" /><use x="17" y="16" xlink:href="#b" /><use x="21" y="16" xlink:href="#b" /><use x="22" y="16" xlink:href="#b" /><use x="25" y="16" xlink:href="#b" /><use x="27" y="16" xlink:href="#b" /><use x="28" y="16" xlink:href="#b" /><use x="3" y="17" xlink:href="#b" /><use x="4" y="17" xlink:href="#b" /><use x="5" y="17" xlink:href="#b" /><use x="8" y="17" xlink:href="#b" /><use x="9" y="17" xlink:href="#b" /><use x="11" y="17" xlink:href="#b" /><use x="12" y="17" xlink:href="#b" /><use x="16" y="17" xlink:href="#b" /><use x="17" y="17" xlink:href="#b" /><use x="18" y="17" xlink:href="#b" /><use x="20" y="17" xlink:href="#b" /><use x="21" y="17" xlink:href="#b" /><use x="22" y="17" xlink:href="#b" /><use x="25" y="17" xlink:href="#b" /><use x="26" y="17" xlink:href="#b" /><use x="28" y="17" xlink:href="#b" /><use x="0" y="18" xlink:href="#b" /><use x="2" y="18" xlink:href="#b" /><use x="3" y="18" xlink:href="#b" /><use x="5" y="18" xlink:href="#b" /><use x="6" y="18" xlink:href="#b" /><use x="8" y="18" xlink:href="#b" /><use x="10" y="18" xlink:href="#b" /><use x="11" y="18" xlink:href="#b" /><use x="12" y="18" xlink:href="#b" /><use x="13" y="18" xlink:href="#b" /><use x="20" y="18" xlink:href="#b" /><use x="23" y="18" xlink:href="#b" /><use x="24" y="18" xlink:href="#b" /><use x="27" y="18" xlink:href="#b" /><use x="28" y="18" xlink:href="#b" /><use x="1" y="19" xlink:href="#b" /><use x="3" y="19" xlink:href="#b" /><use x="4" y="19" xlink:href="#b" /><use x="7" y="19" xlink:href="#b" /><use x="12" y="19" xlink:href="#b" /><use x="13" y="19" xlink:href="#b" /><use x="16" y="19" xlink:href="#b" /><use x="17" y="19" xlink:href="#b" /><use x="18" y="19" xlink:href="#b" /><use x="19" y="19" xlink:href="#b" /><use x="20" y="19" xlink:href="#b" /><use x="21" y="19" xlink:href="#b" /><use x="22" y="19" xlink:href="#b" /><use x="25" y="19" xlink:href="#b" /><use x="27" y="19" xlink:href="#b" /><use x="0" y="20" xlink:href="#b" /><use x="2" y="20" xlink:href="#b" /><use x="3" y="20" xlink:href="#b" /><use x="4" y="20" xlink:href="#b" /><use x="6" y="20" xlink:href="#b" /><use x="7" y="20" xlink:href="#b" /><use x="8" y="20" xlink:href="#b" /><use x="9" y="20" xlink:href="#b" /><use x="11" y="20" xlink:href="#b" /><use x="12" y="20" xlink:href="#b" /><use x="13" y="20" xlink:href="#b" /><use x="15" y="20" xlink:href="#b" /><use x="16" y="20" xlink:href="#b" /><use x="17" y="20" xlink:href="#b" /><use x="20" y="20" xlink:href="#a" /><use x="21" y="20" xlink:href="#a" /><use x="22" y="20" xlink:href="#a" /><use x="23" y="20" xlink:href="#a" /><use x="24" y="20" xlink:href="#a" /><use x="8" y="21" xlink:href="#b" /><use x="9" y="21" xlink:href="#b" /><use x="10" y="21" xlink:href="#b" /><use x="11" y="21" xlink:href="#b" /><use x="17" y="21" xlink:href="#b" /><use x="20" y="21" xlink:href="#a" /><use x="24" y="21" xlink:href="#a" /><use x="26" y="21" xlink:href="#b" /><use x="27" y="21" xlink:href="#b" /><use x="28" y="21" xlink:href="#b" /><use x="0" y="22" xlink:href="#f" /><use x="1" y="22" xlink:href="#f" /><use x="2" y="22" xlink:href="#f" /><use x="3" y="22" xlink:href="#f" /><use x="4" y="22" xlink:href="#f" /><use x="5" y="22" xlink:href="#f" /><use x="6" y="22" xlink:href="#f" /><use x="8" y="22" xlink:href="#b" /><use x="9" y="22" xlink:href="#b" /><use x="12" y="22" xlink:href="#b" /><use x="14" y="22" xlink:href="#b" /><use x="17" y="22" xlink:href="#b" /><use x="18" y="22" xlink:href="#b" /><use x="19" y="22" xlink:href="#b" /><use x="20" y="22" xlink:href="#a" /><use x="22" y="22" xlink:href="#a" /><use x="24" y="22" xlink:href="#a" /><use x="25" y="22" xlink:href="#b" /><use x="27" y="22" xlink:href="#b" /><use x="28" y="22" xlink:href="#b" /><use x="0" y="23" xlink:href="#f" /><use x="6" y="23" xlink:href="#f" /><use x="8" y="23" xlink:href="#b" /><use x="9" y="23" xlink:href="#b" /><use x="10" y="23" xlink:href="#b" /><use x="11" y="23" xlink:href="#b" /><use x="12" y="23" xlink:href="#b" /><use x="13" y="23" xlink:href="#b" /><use x="14" y="23" xlink:href="#b" /><use x="16" y="23" xlink:href="#b" /><use x="17" y="23" xlink:href="#b" /><use x="20" y="23" xlink:href="#a" /><use x="24" y="23" xlink:href="#a" /><use x="25" y="23" xlink:href="#b" /><use x="0" y="24" xlink:href="#f" /><use x="2" y="24" xlink:href="#f" /><use x="3" y="24" xlink:href="#f" /><use x="4" y="24" xlink:href="#f" /><use x="6" y="24" xlink:href="#f" /><use x="8" y="24" xlink:href="#b" /><use x="13" y="24" xlink:href="#b" /><use x="15" y="24" xlink:href="#b" /><use x="16" y="24" xlink:href="#b" /><use x="17" y="24" xlink:href="#b" /><use x="18" y="24" xlink:href="#b" /><use x="20" y="24" xlink:href="#a" /><use x="21" y="24" xlink:href="#a" /><use x="22" y="24" xlink:href="#a" /><use x="23" y="24" xlink:href="#a" /><use x="24" y="24" xlink:href="#a" /><use x="27" y="24" xlink:href="#b" /><use x="0" y="25" xlink:href="#f" /><use x="2" y="25" xlink:href="#f" /><use x="3" y="25" xlink:href="#f" /><use x="4" y="25" xlink:href="#f" /><use x="6" y="25" xlink:href="#f" /><use x="12" y="25" xlink:href="#b" /><use x="13" y="25" xlink:href="#b" /><use x="16" y="25" xlink:href="#b" /><use x="23" y="25" xlink:href="#b" /><use x="24" y="25" xlink:href="#b" /><use x="26" y="25" xlink:href="#b" /><use x="27" y="25" xlink:href="#b" /><use x="28" y="25" xlink:href="#b" /><use x="0" y="26" xlink:href="#f" /><use x="2" y="26" xlink:href="#f" /><use x="3" y="26" xlink:href="#f" /><use x="4" y="26" xlink:href="#f" /><use x="6" y="26" xlink:href="#f" /><use x="8" y="26" xlink:href="#b" /><use x="12" y="26" xlink:href="#b" /><use x="13" y="26" xlink:href="#b" /><use x="17" y="26" xlink:href="#b" /><use x="19" y="26" xlink:href="#b" /><use x="20" y="26" xlink:href="#b" /><use x="21" y="26" xlink:href="#b" /><use x="23" y="26" xlink:href="#b" /><use x="24" y="26" xlink:href="#b" /><use x="25" y="26" xlink:href="#b" /><use x="28" y="26" xlink:href="#b" /><use x="0" y="27" xlink:href="#f" /><use x="6" y="27" xlink:href="#f" /><use x="8" y="27" xlink:href="#b" /><use x="11" y="27" xlink:href="#b" /><use x="13" y="27" xlink:href="#b" /><use x="14" y="27" xlink:href="#b" /><use x="15" y="27" xlink:href="#b" /><use x="17" y="27" xlink:href="#b" /><use x="20" y="27" xlink:href="#b" /><use x="21" y="27" xlink:href="#b" /><use x="24" y="27" xlink:href="#b" /><use x="27" y="27" xlink:href="#b" /><use x="0" y="28" xlink:href="#f" /><use x="1" y="28" xlink:href="#f" /><use x="2" y="28" xlink:href="#f" /><use x="3" y="28" xlink:href="#f" /><use x="4" y="28" xlink:href="#f" /><use x="5" y="28" xlink:href="#f" /><use x="6" y="28" xlink:href="#f" /><use x="8" y="28" xlink:href="#b" /><use x="10" y="28" xlink:href="#b" /><use x="11" y="28" xlink:href="#b" /><use x="12" y="28" xlink:href="#b" /><use x="13" y="28" xlink:href="#b" /><use x="15" y="28" xlink:href="#b" /><use x="16" y="28" xlink:href="#b" /><use x="17" y="28" xlink:href="#b" /><use x="19" y="28" xlink:href="#b" /><use x="20" y="28" xlink:href="#b" /><use x="21" y="28" xlink:href="#b" /><use x="24" y="28" xlink:href="#b" /><use x="25" y="28" xlink:href="#b" /><use x="27" y="28" xlink:href="#b" /><use x="28" y="28" xlink:href="#b" /><use x="3" y="3" xlink:href="#fc" /><use x="25" y="3" xlink:href="#fc" /><use x="22" y="22" xlink:href="#ac" /><use x="3" y="25" xlink:href="#fc" />
+                    </svg>
+                    <!-- #endregion -->
+                </div>
+            </div>
+        </section>
+    </details>
+
+    <!-- <hr> -->
+
+</body>
+<script type="module">
+if (0)      // TODO: Re-enable service worker
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+    // Wait until page is loaded
+    window.addEventListener('load', async function() {
+        try {
+            // Load 'service-worker.js', must be in a top-level directory.
+            const serviceWorkerFile = 'service-worker.js';
+            const reg = await navigator.serviceWorker.register(serviceWorkerFile);
+            // If service-worker.js changes...
+            reg.onupdatefound = function() {
+                const installing = reg.installing;
+                installing.onstatechange = function() {
+                    switch (installing.state) {
+                        case 'installed':
+                            if (navigator.serviceWorker.controller) {
+                                console.log('SERVICE-WORKER: New content available.');
+                                //if (!confirm('Updated content available, reload now?')) { return; }
+                                window.location.reload();
+                            } else {
+                                console.log('SERVICE-WORKER: Now available offline.');
+                            }
+                            break;
+                        case 'redundant':
+                            console.log('SERVICE-WORKER: Installing worker was redundant.');
+                            break;
+                    }
+                };
+            };
+        } catch (e) {
+            console.log('SERVICE-WORKER: Error during registration: ' + e);
+        }
+    });
+}
+
+
+const center = [-1.594, 54.9734];
+const zoom = 12;
+const lang = null;  // null, "en"
+let mapLoaded = null;
+let timeOverride = null;
+const POIs = {
+    // Metro Stations
+    'metro_manors':    { markerText: 'Ⓜ️', markerSize: '16px', options: { color: '#feb300', scale: '0.5' }, lngLat: [-1.604380, 54.973910], html: "<strong>Manors Metro</strong>" },
+    'metro_byker':     { markerText: 'Ⓜ️', markerSize: '16px', options: { color: '#feb300', scale: '0.5' }, lngLat: [-1.580344, 54.976039], html: "<strong>Byker Metro</strong>" },
+    'metro_monument':  { markerText: 'Ⓜ️', markerSize: '16px', options: { color: '#feb300', scale: '0.5' }, lngLat: [-1.613174, 54.974009], html: "<strong>Monument Metro</strong>" },
+    'metro_st_james':  { markerText: 'Ⓜ️', markerSize: '16px', options: { color: '#feb300', scale: '0.5' }, lngLat: [-1.621092, 54.974347], html: "<strong>St. James Metro</strong>" },
+    'metro_central':   { markerText: 'Ⓜ️', markerSize: '16px', options: { color: '#feb300', scale: '0.5' }, lngLat: [-1.616723, 54.969365], html: "<strong>Central Station Metro</strong>" },
+    'metro_haymarket': { markerText: 'Ⓜ️', markerSize: '16px', options: { color: '#feb300', scale: '0.5' }, lngLat: [-1.613931, 54.977504], html: "<strong>Haymarket Metro</strong>" },
+    'metro_jesmond':   { markerText: 'Ⓜ️', markerSize: '16px', options: { color: '#feb300', scale: '0.5' }, lngLat: [-1.605578, 54.983066], html: "<strong>Jesmond Metro</strong>" },
+    'metro_gateshead': { markerText: 'Ⓜ️', markerSize: '16px', options: { color: '#feb300', scale: '0.5' }, lngLat: [-1.604410, 54.961727], html: "<strong>Gateshead Metro</strong>" },
+};
+
+/*
+# From: https://docs.protomaps.com/guide/getting-started
+# Note: pmtiles uses long/lat while, e.g., Google Maps uses lat/long.
+# Extract a subset of the map - the lower-left coordinate first, then the upper-right.
+pmtiles extract https://build.protomaps.com/20240812.pmtiles map.pmtiles --bbox=139.6120,35.4365,139.6585,35.4703
+# Serve over HTTP with a server supporting Range headers
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install rangehttpserver
+python3 -m RangeHTTPServer
+# Alternative
+npx http-server
+*/
+async function loadMap(container, center, zoom) {
+    // <link rel="stylesheet" href="./pmtiles/maplibre-gl.css" /> <!-- https://esm.sh/maplibre-gl@3.6.1/dist/maplibre-gl.css -->
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "./pmtiles/maplibre-gl.css";
+    document.head.appendChild(link);  // Append the link element to the document head
+
+    const pmtiles = await import("./pmtiles/pmtiles.mjs");                          // "https://esm.sh/pmtiles@3.2.0"
+    const layers = (await import("./pmtiles/protomaps-themes-base.mjs")).default;   // "https://esm.sh/protomaps-themes-base@3.1.0"
+    const maplibregl = (await import("./pmtiles/maplibre-gl.mjs")).default;         // "https://esm.sh/maplibre-gl@4.7.1"
+
+    const protocol = new pmtiles.Protocol();
+    maplibregl.addProtocol("pmtiles", protocol.tile);
+
+    let baseStyle = {
+        version: 8,
+        glyphs: "./pmtiles/{fontstack}/{range}.pbf", // "https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf",
+    };
+    //baseStyle = await (await fetch('pmtiles/map-style.json')).json();
+    const style = Object.assign(baseStyle, {
+        sources: {
+            protomaps: {
+                type: "vector",
+                url: `pmtiles://${location.protocol}//${location.host}${location.pathname.replace(/index.html$/, '').replace(/\/$/, '')}/map.pmtiles`,
+                attribution: '<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>',
+            },
+        },
+        layers: layers("protomaps", "grayscale"),   // "dark", "light", "grayscale"
+        center,
+        zoom,
+    });
+
+    const myMap = new maplibregl.Map({
+        container: container,
+        style,
+    });
+    myMap.maplibregl = maplibregl;      // Hackily expose as part of return value
+
+    const mapPromise = new Promise((resolve, reject) => {
+        myMap.on("load", () => {
+            if (lang) {
+                // 'address_label', 'water_waterway_label', 'water_label_ocean', 'water_label_lakes'
+                for (const id of [ 'roads_labels_minor', 'roads_labels_major', 'places_subplace', 'places_locality', 'places_region', 'places_country' ]) {
+                    myMap.setLayoutProperty(id, 'text-field', [ 'get', `name:${lang}` ]);
+                }
+            }
+            resolve(myMap)
+        });
+        myMap.on("error", (e) => {
+            reject(e);
+        });
+    });
+
+    return await mapPromise;
+}
+
+// Check for hash parameter changes
+function update(now) {
+    let params = new Map();
+    if ('URLSearchParams' in window) {
+        const hash = location.hash.slice(1);
+        params = new URLSearchParams(hash);
+    }
+
+    // Parse for special functions
+    document.body.classList.toggle('og_image', params.has('og_image'));
+    document.body.classList.toggle('info', params.has('info') || params.has('og_image')); // 1200x630
+    document.body.classList.toggle('zoom', params.has('zoom'));
+    timeOverride = params.has('time') ? params.get('time') : null;
+    document.querySelector('details.shareinfo').toggleAttribute('open', params.has('info'));
+
+    // Update active POI
+    if (!now && timeOverride) { now = timeOverride; }
+    if (typeof now === 'string') { now = new Date(now); }
+    if (!now) { now = new Date(); }
+    const active = [];
+    // Within interval
+    let nextStart = null;
+    for (const [id, poi] of Object.entries(POIs)) {
+        if (poi.startTime && poi.startTime.getTime() <= now.getTime() && now.getTime() < poi.endTime.getTime()) {
+            active.push(id);
+        }
+        if (poi.startTime && poi.startTime.getTime() > now.getTime() && (!nextStart || poi.startTime.getTime() < nextStart.getTime())) {
+            nextStart = poi.startTime;
+        }
+    }
+    // If there are none active, any at the 'nextStart' time (if soon) are treated as active
+    if (active.length === 0 && nextStart && nextStart.getTime() - now.getTime() <= 1 * 60 * 60 * 1000) { // 1 hour
+        for (const [id, poi] of Object.entries(POIs)) {
+            if (poi.startTime && poi.startTime.getTime() == nextStart.getTime()) {
+                active.push(id);
+            }
+        }
+    }
+
+
+    // POI selection
+    for (const [id, poi] of Object.entries(POIs)) {
+        const isTarget = params.has(id);
+        const isActive = active.includes(id);
+
+        // Update map marker highlight
+        if (poi.marker) {
+            if (poi.card) {
+                poi.card.classList.toggle('target', isTarget);
+            }
+            if (isTarget) {
+                poi.marker.addClassName('target');
+            } else {
+                poi.marker.removeClassName('target');
+            }
+
+            if (poi.card) {
+                poi.card.classList.toggle('active', isActive);
+            }
+            if (isActive) {
+                poi.marker.addClassName('active');
+            } else {
+                poi.marker.removeClassName('active');
+            }
+        }
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", async () => {
+    // Add POIs from document data
+    const cards = document.querySelectorAll('.which .card');
+    for (const card of cards) {
+        const name = card.querySelector('.p-name').textContent;
+        const lngLat = [
+            parseFloat(card.querySelector('.p-longitude').getAttribute('value')),
+            parseFloat(card.querySelector('.p-latitude').getAttribute('value')),
+        ];
+        const markerText = card.querySelector('.index').textContent;
+        const startTime = new Date(card.querySelector('.dt-start').getAttribute('datetime'));
+        const endTime = new Date(card.querySelector('.dt-end').getAttribute('datetime'));
+
+        //const location = card.querySelector('.location').textContent;
+        //const mapUrl = card.querySelector('.location').getAttribute('href');
+        //const websiteUrl = card.querySelector('.website').getAttribute('href');
+        //const websiteName = card.querySelector('.website').textContent;
+        //const html = `<strong style='font-size: large;'>${name}</strong><br><br><a href="${mapUrl}">📍 ${location}</a><br><a href="${websiteUrl}">🔗 ${websiteName}</a>`;
+
+        const html = `${markerText} <strong>${name}</strong>`;    // `<strong>${name}</strong><br>${location}`;
+
+        const poi = {
+            id: card.id,
+            card,
+            name,
+            originalMarkerText: markerText,
+            markerText,
+            lngLat,
+            html,
+            startTime,
+            endTime,
+        };
+        if (poi.markerText === '*️⃣') {
+            poi.markerSize = '16px';
+            //poi.options = { color: '#3fb1ce', scale: '0.5' };
+        }
+        //delete poi.markerText;
+        POIs[poi.id] = poi;
+    }
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', () => { update(); });
+    update();   // Initial update before map/markers
+
+    // Create a map with the specified center and zoom
+    let myMap;
+    try {
+        myMap = await loadMap("map", center, zoom);
+    } catch (e) {
+        // On any map loading error, clear out map container so fallback content is visible
+        console.error("ERROR: Problem loading map", e);
+        document.getElementById("map").innerHTML = "";
+        document.getElementById("map").className = "";
+        return;
+    }
+
+    // Map bounds fixed to the extracted area
+    const myBounds = myMap.getSource("protomaps").bounds;
+    myMap.setMaxBounds(myBounds);
+
+    // Add POIs to map
+    for (const poi of Object.values(POIs)) {
+        const options = Object.assign({}, poi.options);
+        if (poi.markerText) {
+            options.element = document.createElement("div");
+            options.element.className = "marker";
+            options.element.innerText = poi.markerText;
+            if (poi.markerSize) {
+                options.element.style.fontSize = poi.markerSize;
+            }
+        }
+        poi.marker = new myMap.maplibregl.Marker(options);
+        poi.marker.setLngLat(poi.lngLat);
+        poi.marker.setPopup(
+            new myMap.maplibregl.Popup().setHTML(poi.html)
+        );
+        poi.marker.addTo(myMap);
+    }
+
+    // Opportunity to customize marker now map is loaded
+    mapLoaded = myMap;
+    update();   // Update map markers
+});
+
+setInterval(() => { update(); }, 60 * 1000);  // Update every minute
+
+</script>
+</html>

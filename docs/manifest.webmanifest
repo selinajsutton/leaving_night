@@ -1,0 +1,15 @@
+{
+    "short_name": "GeordieCHI",
+    "name": "GeordieCHI",
+    "icons": [
+        {
+            "src": "favicon.svg",
+            "sizes": "any",
+            "type": "image/svg"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#000000"
+}
